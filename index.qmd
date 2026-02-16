@@ -5,3 +5,5 @@ format: html
 ---
 
 Main page for the [Statistical Distributions App created in Shinylive by Gemini](./site/).
+
+Updated version [Statistical Distributions App created in Shinylive by Gemini](./site2/).
