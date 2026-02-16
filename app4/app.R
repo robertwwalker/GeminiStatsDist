@@ -157,48 +157,60 @@ server <- function(input, output, session) {
       x_max <- max(x_max, qlnorm(0.98, meanlog = input$meanlog, sdlog = input$sdlog))
     }
     
-    # --- 2. Calculate Theoretical Data & Y-axis Limits ---
-    # We pre-calculate histogram density to ensure Y-axes match perfectly
+    # --- 2. Calculate Empirical & Theoretical Data for Y-axis Limits ---
     hist_info <- hist(data, breaks = input$bins, plot = FALSE)
     max_hist_y <- max(hist_info$density)
     
     if (dist %in% c("Normal", "Uniform", "Lognormal")) {
+      # Theoretical Continuous PDF
       x_vals_theo <- seq(x_min, x_max, length.out = 500)
       if (dist == "Normal") y_vals_theo <- dnorm(x_vals_theo, mean = input$mu, sd = input$sigma)
       else if (dist == "Uniform") y_vals_theo <- dunif(x_vals_theo, min = input$min, max = input$max)
       else if (dist == "Lognormal") y_vals_theo <- dlnorm(x_vals_theo, meanlog = input$meanlog, sdlog = input$sdlog)
+      
+      # Empirical Continuous Density (KDE)
+      emp_dens <- density(data)
+      max_emp_y <- max(emp_dens$y)
+      
     } else {
+      # Theoretical Discrete PMF
       x_vals_theo <- max(0, floor(x_min)):ceiling(x_max)
       if (dist == "Binomial") y_vals_theo <- dbinom(x_vals_theo, size = input$size, prob = input$prob)
       else if (dist == "Geometric") y_vals_theo <- dgeom(x_vals_theo, prob = input$geom_prob)
       else if (dist == "Negative Binomial") y_vals_theo <- dnbinom(x_vals_theo, size = input$nbinom_size, prob = input$nbinom_prob)
       else if (dist == "Poisson") y_vals_theo <- dpois(x_vals_theo, lambda = input$lambda)
+      
+      # Empirical Discrete PMF (Sample Proportions)
+      emp_table <- prop.table(table(data))
+      emp_x <- as.numeric(names(emp_table))
+      emp_y <- as.numeric(emp_table)
+      max_emp_y <- max(emp_y)
     }
     
     max_theo_y <- max(y_vals_theo)
-    y_max_combined <- max(max_hist_y, max_theo_y) * 1.1 # Add 10% visual headroom
+    y_max_combined <- max(max_hist_y, max_theo_y, max_emp_y) * 1.1 # Envelope all 3 maxima
     
     # Set up plotting area for 1 row, 2 columns
     par(mfrow = c(1, 2), mar = c(5, 4, 4, 2) + 0.1)
     
-    # --- PLOT 1: Empirical Sample Histogram (with overlay) ---
+    # --- PLOT 1: Empirical Sample Histogram + Empirical Overlay ---
     hist(data, 
-         main = paste("Sample Histogram (n =", input$n, ")"),
+         main = paste("Sample & Empirical Density (n =", input$n, ")"),
          xlab = "Value", 
-         ylab = "Density / Probability",
+         ylab = "Density / Proportion",
          col = "steelblue", 
          border = "white",
          breaks = input$bins, 
          xlim = c(x_min, x_max),
          ylim = c(0, y_max_combined),
-         freq = FALSE) # MUST be FALSE to plot on same scale as theoretical curve
+         freq = FALSE) 
     
-    # Draw the overlay on the empirical plot
+    # Draw the Empirical overlay
     if (dist %in% c("Normal", "Uniform", "Lognormal")) {
-      lines(x_vals_theo, y_vals_theo, col = "darkorange", lwd = 3)
+      lines(emp_dens, col = "forestgreen", lwd = 3) # Using green to distinguish empirical
     } else {
-      points(x_vals_theo, y_vals_theo, col = "darkorange", pch = 16, cex = 1.5)
-      lines(x_vals_theo, y_vals_theo, col = "darkorange", lwd = 3, type = "h")
+      points(emp_x, emp_y, col = "forestgreen", pch = 16, cex = 1.5)
+      lines(emp_x, emp_y, col = "forestgreen", lwd = 3, type = "h")
     }
     
     # --- PLOT 2: Theoretical PDF / PMF ---
