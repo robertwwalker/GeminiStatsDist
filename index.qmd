@@ -1,0 +1,7 @@
+---
+title: "index"
+author: "RWW"
+format: html
+---
+
+Main page for the [Statistical Distributions App created in Shinylive by Gemini](./site/).
