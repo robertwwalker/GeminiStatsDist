@@ -28,4 +28,34 @@ Updated version [Statistical Distributions App created in Shinylive by Gemini](.
 This is great.  One more thing, I forgot the negative binomial distribution, please add it to this final app
 :::
 
-Final version [Statistical Distributions App created in Shinylive by Gemini](./site3/).
+Almost final version [Statistical Distributions App created in Shinylive by Gemini](./site3/).
+
+::: {.callout-tip}
+## Prompt
+
+This app is excellent.  But it occurred to me that instead of the density, it should include either the theoretical pdf/pmf for the type of variable, best for seeing the differences between small and infinite samples.
+
+## Response
+
+This is a fantastic pedagogical improvement. You are completely right: overlaying a theoretical density curve on top of a 15-sample histogram can actually be visually confusing.
+
+To best illustrate the Law of Large Numbers (small sample vs. infinite sample), we should plot them side-by-side.
+
+In this updated version:
+
+1. The left plot is strictly your empirical data (the small sample histogram) plotted as actual counts/frequencies.
+
+2. The right plot is the pure theoretical PDF (Continuous) or PMF (Discrete), representing the "infinite" sample.
+
+3. Crucially, I wrote a logic block to lock the X-axes of both plots to the exact same scale. This means if your 15-sample misses the "tails" of a normal distribution, the histogram's axis will stretch to match the theoretical plot, making the visual comparison perfectly 1-to-1.
+:::
+
+Almost almost final version [Statistical Distributions App created in Shinylive by Gemini](./site4/).
+
+::: {.callout-tip}
+## Prompt
+
+Add the density plot overlay back on to the histogram please.  I like the side-by-side but it mitigates the distortions of bin sizes for quantitative variables.
+:::
+
+Final version [Statistical Distributions App created in Shinylive by Gemini](./site5/).
