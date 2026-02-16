@@ -1,5 +1,5 @@
 ---
-title: "index"
+title: "Using Gemini for a Distributions App"
 author: "RWW"
 format: html
 ---
