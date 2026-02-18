@@ -152,6 +152,8 @@ server <- function(input, output, session) {
         stats$Mean <- (input$min+input$max)/2; stats$Var <- (input$max-input$min)^2/12; stats$Median <- stats$Mean
       } else if (d == "Binomial") {
         stats$Mean <- input$size * input$p_b; stats$Var <- stats$Mean * (1-input$p_b); stats$Median <- qbinom(0.5, input$size, input$p_b)
+      } else if (d == "Beta") {
+        stats$Mean <- input$s1/(input$s1 + input$s2); stats$SD <- sqrt((input$s1*input$s2)/((input$s1+input$s2+1)*(input$s1+input$s2)^2)); stats$Var <- (input$s1*input$s2)/((input$s1+input$s2+1)*(input$s1+input$s2)^2); stats$Median <- (input$s1 - (1/3))/(input$s1+input$s2-(2/3))
       } else if (d == "Poisson") {
         stats$Mean <- input$lam; stats$Var <- input$lam; stats$Median <- qpois(0.5, input$lam)
       }
