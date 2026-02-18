@@ -3,7 +3,7 @@ library(bslib)
 
 ui <- page_sidebar(
   title = "Statistical Distribution Workbench",
-  theme = bs_theme(bootswatch = "flatly", primary = "#2c3e50"),
+  theme = bs_theme(bootswatch = "morph", primary = "#2c3e50"),
   
   sidebar = sidebar(
     # 1. Distribution Selection
