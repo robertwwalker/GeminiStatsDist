@@ -1,0 +1,20 @@
+---
+title: "Using Gemini for Sampling from Statistical Calculations"
+author: "RWW"
+format: html
+---
+
+::: {.callout-tip}
+## Prompt
+
+i want to create a shinylive app that will calculate probabilities and quantiles for statistical distributions chosen from a menu and user entered parameters for those distributions as well as user entered probabilities to solve for quantities or quantities to solve for probabilities.
+
+yes, add the tail toggle switch, the t, F, exponential, negative binomial, geometric, uniform, and beta distributions, and let’s also add a graphical representation of the distribution as a panel
+
+this is great.  Let me add one more feature.  In the calculation section with quantiles and probabilities, let’s add a drop-down for one-tailed or two.  The one-tailed should still allow lower or upper tail as choices, but the two-tailed should require a lower value and an upper value that are appropriately constrained to yield a positive result.
+
+Add the summary statistics showing mean, standard deviation, variance, and median.  Instead of Lower and Upper printed as text in the top showing the result, substitute in the values to yield a valid statistical claim, e.g. prob(-2 < z < 2) approx 0.9545
+:::
+
+The result [is this probability calculator](./PCalc/).  Updated to [calculate summary for `beta` that Gemini skipped](./PCalc2/).
+

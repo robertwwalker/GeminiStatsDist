@@ -8,7 +8,7 @@
 
 <meta name="author" content="RWW">
 
-<title>Using Gemini for a Distributions App</title>
+<title>Using Gemini for Sampling from Statistical Calculations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,18 +24,18 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="index_files/libs/clipboard/clipboard.min.js"></script>
-<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="index_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="index_files/libs/quarto-html/popper.min.js"></script>
-<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="index_files/libs/quarto-html/anchor.min.js"></script>
-<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="ProbCalcluate_files/libs/clipboard/clipboard.min.js"></script>
+<script src="ProbCalcluate_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="ProbCalcluate_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="ProbCalcluate_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="ProbCalcluate_files/libs/quarto-html/popper.min.js"></script>
+<script src="ProbCalcluate_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="ProbCalcluate_files/libs/quarto-html/anchor.min.js"></script>
+<link href="ProbCalcluate_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="ProbCalcluate_files/libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="ProbCalcluate_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="ProbCalcluate_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="ProbCalcluate_files/libs/bootstrap/bootstrap-d6a003b94517c951b2d65075d42fb01b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -48,7 +48,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Using Gemini for a Distributions App</h1>
+<h1 class="title">Using Gemini for Sampling from Statistical Calculations</h1>
 </div>
 
 
@@ -71,19 +71,23 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>I have built a few apps with Gemini using the shinylive technology to use the browser to compute. This page provides a landing for access to each individual project. The interactions with Gemini and the resultant apps are on each page. A few general themes. (1) base R is far easier because of package version matching for the <code>shinylive</code> framework. (2) bslib works well for maintaining consistent styles. I stopped caring.</p>
-<section id="sampling-from-statistical-distributions" class="level2">
-<h2 class="anchored" data-anchor-id="sampling-from-statistical-distributions">Sampling From Statistical Distributions</h2>
-<p><a href="./StatSample.html">Sampling and Plotting Distributions</a></p>
-</section>
-<section id="a-probability-calculator" class="level2">
-<h2 class="anchored" data-anchor-id="a-probability-calculator">A Probability Calculator</h2>
-<p><a href="./ProbCalcluate.html">Probability Calculator</a></p>
-</section>
-<section id="central-limit-theorem" class="level2">
-<h2 class="anchored" data-anchor-id="central-limit-theorem">Central Limit Theorem</h2>
-<p><a href="./CenLim.html">Central Limit Theorem Illustrator</a></p>
-</section>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Prompt
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>i want to create a shinylive app that will calculate probabilities and quantiles for statistical distributions chosen from a menu and user entered parameters for those distributions as well as user entered probabilities to solve for quantities or quantities to solve for probabilities.</p>
+<p>yes, add the tail toggle switch, the t, F, exponential, negative binomial, geometric, uniform, and beta distributions, and let’s also add a graphical representation of the distribution as a panel</p>
+<p>this is great. Let me add one more feature. In the calculation section with quantiles and probabilities, let’s add a drop-down for one-tailed or two. The one-tailed should still allow lower or upper tail as choices, but the two-tailed should require a lower value and an upper value that are appropriately constrained to yield a positive result.</p>
+<p>Add the summary statistics showing mean, standard deviation, variance, and median. Instead of Lower and Upper printed as text in the top showing the result, substitute in the values to yield a valid statistical claim, e.g.&nbsp;prob(-2 &lt; z &lt; 2) approx 0.9545</p>
+</div>
+</div>
+<p>The result <a href="./PCalc/">is this probability calculator</a>. Updated to <a href="./PCalc2/">calculate summary for <code>beta</code> that Gemini skipped</a>.</p>
 
 </main>
 <!-- /main column -->

@@ -4,83 +4,16 @@ author: "RWW"
 format: html
 ---
 
-Building a Shinylive app with Gemini.
+I have built a few apps with Gemini using the shinylive technology to use the browser to compute. This page provides a landing for access to each individual project.  The interactions with Gemini and the resultant apps are on each page.  A few general themes.  (1) base R is far easier because of package version matching for the `shinylive` framework.  (2) bslib works well for maintaining consistent styles.  I stopped caring.
 
-::: {.callout-tip}
-## Prompt
+## Sampling From Statistical Distributions
 
-can you help me build a shiny app for statistical distributions?  I want it to contain a drop down for sample sizes of 15, 30, 50, 100 and to include a drop down of distributions including the normal, binomial, geometric, poisson, uniform, and lognormal distributions.  Responsive to the choice of distribution, parameters should be fields to be entered by the user.  Once the user has made choices it should produce a table of summary statistics including the mean, standard deviation, and five number summary, and a histogram of the data.
-:::
+[Sampling and Plotting Distributions](./StatSample.html)
 
-Main page for the [Statistical Distributions App created in Shinylive by Gemini](./site/).
+## A Probability Calculator
 
-::: {.callout-tip}
-## Prompt
-
-Now I want to go back to the app and overlay a density plot and make the number of bins for the histogram a slider
-:::
-
-Updated version [Statistical Distributions App created in Shinylive by Gemini](./site2/).
-
-::: {.callout-tip}
-## Prompt
-
-This is great.  One more thing, I forgot the negative binomial distribution, please add it to this final app
-:::
-
-Almost final version [Statistical Distributions App created in Shinylive by Gemini](./site3/).
-
-::: {.callout-tip}
-## Prompt
-
-This app is excellent.  But it occurred to me that instead of the density, it should include either the theoretical pdf/pmf for the type of variable, best for seeing the differences between small and infinite samples.
-
-## Response
-
-This is a fantastic pedagogical improvement. You are completely right: overlaying a theoretical density curve on top of a 15-sample histogram can actually be visually confusing.
-
-To best illustrate the Law of Large Numbers (small sample vs. infinite sample), we should plot them side-by-side.
-
-In this updated version:
-
-1. The left plot is strictly your empirical data (the small sample histogram) plotted as actual counts/frequencies.
-
-2. The right plot is the pure theoretical PDF (Continuous) or PMF (Discrete), representing the "infinite" sample.
-
-3. Crucially, I wrote a logic block to lock the X-axes of both plots to the exact same scale. This means if your 15-sample misses the "tails" of a normal distribution, the histogram's axis will stretch to match the theoretical plot, making the visual comparison perfectly 1-to-1.
-:::
-
-Almost almost final version [Statistical Distributions App created in Shinylive by Gemini](./site4/).
-
-::: {.callout-tip}
-## Prompt
-
-Add the density plot overlay back on to the histogram please.  I like the side-by-side but it mitigates the distortions of bin sizes for quantitative variables.
-:::
-
-Final version [Statistical Distributions App created in Shinylive by Gemini](./site5/).
-
-
-::: {.callout-tip}
-## Prompt
-
-i want to create a shinylive app that will calculate probabilities and quantiles for statistical distributions chosen from a menu and user entered parameters for those distributions as well as user entered probabilities to solve for quantities or quantities to solve for probabilities.
-
-yes, add the tail toggle switch, the t, F, exponential, negative binomial, geometric, uniform, and beta distributions, and let’s also add a graphical representation of the distribution as a panel
-
-this is great.  Let me add one more feature.  In the calculation section with quantiles and probabilities, let’s add a drop-down for one-tailed or two.  The one-tailed should still allow lower or upper tail as choices, but the two-tailed should require a lower value and an upper value that are appropriately constrained to yield a positive result.
-
-Add the summary statistics showing mean, standard deviation, variance, and median.  Instead of Lower and Upper printed as text in the top showing the result, substitute in the values to yield a valid statistical claim, e.g. prob(-2 < z < 2) approx 0.9545
-:::
-
-The result [is this probability calculator](./PCalc/).  Updated to [calculate summary for `beta` that Gemini skipped](./PCalc2/).
+[Probability Calculator](./ProbCalcluate.html)
 
 ## Central Limit Theorem
 
-::: {.callout-tip}
-# Prompt
-
-I want to build a shinylive app to demonstrate the central limit theorem.  It should be able to choose three things: the distribution to be sampled from, the sample size for the means, and the number of samples.  It should make available the normal, exponential, beta, lognormal, binomial, Poisson, geometric, negative binomial, chi-square and F distributions with a reactive menu to input the parameters for the respective statistical distribution
-:::
-
-The result is [this app](./CLT/)
+[Central Limit Theorem Illustrator](./CenLim.html)
