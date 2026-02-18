@@ -59,3 +59,15 @@ Add the density plot overlay back on to the histogram please.  I like the side-b
 :::
 
 Final version [Statistical Distributions App created in Shinylive by Gemini](./site5/).
+
+
+::: {.callout-tip}
+## Prompt
+
+i want to create a shinylive app that will calculate probabilities and quantiles for statistical distributions chosen from a menu and user entered parameters for those distributions as well as user entered probabilities to solve for quantities or quantities to solve for probabilities.
+
+yes, add the tail toggle switch, the t, F, exponential, negative binomial, geometric, uniform, and beta distributions, and let’s also add a graphical representation of the distribution as a panel
+
+the is great.  Let me add one more feature.  In the calculation section with quantiles and probabilities, let’s add a drop-down for one-tailed or two.  The one-tailed should still allow lower or upper tail as choices, but the two-tailed should require a lower value and an upper value that are appropriately constrained to yield a positive result.
+:::
+
