@@ -73,4 +73,4 @@ this is great.  Let me add one more feature.  In the calculation section with qu
 Add the summary statistics showing mean, standard deviation, variance, and median.  Instead of Lower and Upper printed as text in the top showing the result, substitute in the values to yield a valid statistical claim, e.g. prob(-2 < z < 2) approx 0.9545
 :::
 
-The result [is this probability calculator](./PCalc/).
+The result [is this probability calculator](./PCalc/).  Updated to calculate summary for `beta` that Gemini skipped.
