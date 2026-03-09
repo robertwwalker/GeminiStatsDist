@@ -18,14 +18,30 @@ format:
     linestretch: 1.6
 ---
 
+::: {cards}
+
+:::{.card}
+
 ## Central Limit Theorem
 
 [The Central Limit Theorem App](./CenLim.html)
+
+:::
+
+:::{.card}
 
 ## Sampling from Distributions
 
 [A Sampling App](./StatSample.html)
 
+:::
+
+:::{.card}
+
 ## Probability Calculator
 
 [A Probability Calculator](./ProbCalculate.html)
+
+:::
+
+:::

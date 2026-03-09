@@ -17,12 +17,6 @@ format:
     mainfont: "Baskerville, Georgia, serif"
     fontsize: 1em
     linestretch: 1.6
-    # Add these lines to activate the citation UI
-    citation: true
-    # This generates the 'How to cite' section at the bottom
-    appendix-style: plain 
-    # Optional: adds a hover preview for citations
-    citation-hover: true
 
 execute:
   freeze: auto
