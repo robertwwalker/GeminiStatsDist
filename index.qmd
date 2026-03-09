@@ -1,14 +1,31 @@
 ---
 title: "Gemini Statistics Tools"
-listing:
-  contents: /
-  sort: "date desc"
-  type: grid
-  categories: true
-  sort-ui: true
-  filter-ui: true
-  page-size: 12
-  fields: [image, date, title, description, categories]
-page-layout: full
+format:
+  html:
+    theme: 
+      - cosmo
+      - css/steampunk-SEMANTIC.scss
+    css: 
+      - css/custom-cards.css
+    toc: false
+    smooth-scroll: true
+    link-external-newwindow: true
+    code-copy: true
+    code-overflow: wrap
+    highlight-style: monokai
+    mainfont: "Baskerville, Georgia, serif"
+    fontsize: 1em
+    linestretch: 1.6
 ---
 
+## Central Limit Theorem
+
+[The Central Limit Theorem App](./CenLim.html)
+
+## Sampling from Distributions
+
+[A Sampling App](./StatSample.html)
+
+## Probability Calculator
+
+[A Probability Calculator](./ProbCalculate.html)
