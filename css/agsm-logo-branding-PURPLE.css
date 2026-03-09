@@ -1,0 +1,293 @@
+/* ============================================
+   AGSM LOGO BRANDING - PURPLE THEME VERSION
+   Add this to the bottom of css/custom.css
+   ============================================ */
+
+/* CSS Variables for Purple Theme */
+:root {
+  --purple-darkest: #1a0f2e;
+  --purple-dark: #22133a;
+  --purple-medium: #2a1a45;
+  --purple-light: #362756;
+  --purple-lighter: #453465;
+}
+
+/* Option 1: Logo in Navbar (next to name) */
+.navbar-logo-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar-logo-brand img {
+  height: 50px;
+  width: auto;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+.navbar-logo-brand img:hover {
+  opacity: 1;
+}
+
+/* Option 2: Logo in Footer (centered) - RECOMMENDED FOR PURPLE */
+.footer-branding {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 0 1rem;
+  border-top: 1px solid rgba(175, 152, 230, 0.1);
+}
+
+.footer-branding img {
+  height: 80px;
+  width: auto;
+  opacity: 0.85;
+  filter: brightness(1.2);  /* Brighter for purple background */
+}
+
+.footer-branding .affiliation {
+  font-family: 'Baskerville', Georgia, serif;
+  font-size: 0.875rem;
+  color: #9CA6E3;
+  font-style: italic;
+}
+
+/* Option 3: Logo Watermark (subtle background) */
+.page-watermark::before {
+  content: '';
+  position: fixed;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+  width: 200px;
+  height: 200px;
+  background-image: url('../images/agsm-logo.jpeg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.04;  /* Slightly more visible on purple */
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Option 4: Logo in Sidebar (research/teaching pages) */
+.sidebar-branding {
+  padding: 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(175, 152, 230, 0.2);
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, rgba(54, 39, 86, 0.4), rgba(42, 26, 69, 0.4));
+  border-radius: 1rem;
+}
+
+.sidebar-branding img {
+  width: 120px;
+  height: auto;
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
+  filter: brightness(1.15);
+}
+
+.sidebar-branding .affiliation-text {
+  font-family: 'Baskerville', Georgia, serif;
+  font-size: 0.75rem;
+  color: #9CA6E3;
+  line-height: 1.4;
+}
+
+/* Option 5: Logo Badge (homepage hero section) */
+.institutional-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(34, 19, 58, 0.95);  /* Purple background */
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(175, 152, 230, 0.4);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 20px rgba(175, 152, 230, 0.1);
+}
+
+.institutional-badge img {
+  display: block;
+  width: 100px;
+  height: auto;
+  opacity: 0.95;
+  filter: brightness(1.1);
+}
+
+/* Option 6: Logo in Contact Card */
+.contact-card-with-logo {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-card-with-logo::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  width: 100px;
+  height: 100px;
+  background-image: url('../images/agsm-logo.jpeg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.1;  /* More visible on purple */
+  transform: rotate(-15deg);
+}
+
+/* Option 7: Ornamental Logo Header (top of pages) */
+.page-header-branding {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid rgba(175, 152, 230, 0.2);
+  position: relative;
+  background: linear-gradient(to right, rgba(54, 39, 86, 0.2), transparent);
+  border-radius: 0.5rem;
+}
+
+.page-header-branding::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(to right, #AF98E6, #DA99E6);
+}
+
+.page-header-branding .title-section h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #AF98E6;
+  font-family: 'Baskerville', Georgia, serif;
+}
+
+.page-header-branding .logo-section img {
+  height: 60px;
+  width: auto;
+  opacity: 0.9;
+  filter: brightness(1.15);
+}
+
+/* Option 8: Floating Badge (bottom right corner) */
+.floating-institution-badge {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: linear-gradient(135deg, rgba(54, 39, 86, 0.95), rgba(42, 26, 69, 0.95));
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba(175, 152, 230, 0.4);
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 30px rgba(175, 152, 230, 0.15);
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.floating-institution-badge:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 48px rgba(175, 152, 230, 0.25);
+  border-color: rgba(175, 152, 230, 0.6);
+}
+
+.floating-institution-badge img {
+  display: block;
+  width: 80px;
+  height: auto;
+  filter: brightness(1.15);
+}
+
+.floating-institution-badge .badge-text {
+  font-family: 'Baskerville', Georgia, serif;
+  font-size: 0.625rem;
+  color: #9CA6E3;
+  text-align: center;
+  margin-top: 0.5rem;
+  line-height: 1.3;
+}
+
+/* Enhanced glow effects for purple theme */
+.floating-institution-badge::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, #AF98E6, #DA99E6);
+  border-radius: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.floating-institution-badge:hover::before {
+  opacity: 0.2;
+}
+
+/* Purple theme enhancements */
+.institutional-badge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(175, 152, 230, 0.1), transparent);
+  border-radius: 0.5rem;
+  pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar-logo-brand img {
+    height: 40px;
+  }
+  
+  .footer-branding img {
+    height: 60px;
+  }
+  
+  .page-watermark::before {
+    width: 120px;
+    height: 120px;
+    right: 2%;
+    opacity: 0.05;
+  }
+  
+  .floating-institution-badge {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.75rem;
+  }
+  
+  .floating-institution-badge img {
+    width: 60px;
+  }
+  
+  .institutional-badge {
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.5rem;
+  }
+  
+  .institutional-badge img {
+    width: 70px;
+  }
+}
+
+/* Special purple theme adjustments */
+@supports (backdrop-filter: blur(10px)) {
+  .footer-branding {
+    background: linear-gradient(to bottom, transparent, rgba(34, 19, 58, 0.5));
+    padding: 3rem 0 2rem;
+  }
+  
+  .sidebar-branding {
+    backdrop-filter: blur(10px);
+  }
+  
+  .floating-institution-badge {
+    backdrop-filter: blur(20px);
+  }
+}

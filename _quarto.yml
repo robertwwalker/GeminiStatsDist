@@ -1,0 +1,65 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Gemini Statistics Tools"
+  site-url: "https://robertwwalker.github.io/GeminiStatsDist/"
+  description: "Statistics Tools"
+  favicon: images/favicon.png
+  
+  navbar:
+    logo: images/agsm-logo.jpeg
+    background: "#16181d"
+    foreground: "#e8e9ed"
+    left:
+      - text: "AI Tools"
+        href: index.qmd
+        icon: robot
+    right:
+      - icon: envelope
+        href: mailto:rwalker@willamette.edu
+        aria-label: Email
+      - icon: github
+        href: https://github.com/robertwwalker
+        aria-label: GitHub
+      - icon: twitter
+        href: https://twitter.com/PieRatio
+        aria-label: Twitter
+
+  page-footer:
+    background: "#16181d"
+    foreground: "#7a7f8c"
+    center: |
+      © 2024 Robert W. Walker · Powered by [Quarto](https://quarto.org) · Designed with artistry and precision
+    
+
+format:
+  html:
+    theme: 
+      - cosmo
+      - css/steampunk-SEMANTIC.scss
+    css: 
+      - css/custom-cards.css
+    toc: false
+    smooth-scroll: true
+    link-external-newwindow: true
+    code-copy: true
+    code-overflow: wrap
+    highlight-style: monokai
+    mainfont: "Baskerville, Georgia, serif"
+    fontsize: 1em
+    linestretch: 1.6
+    # Add these lines to activate the citation UI
+    citation: true
+    # This generates the 'How to cite' section at the bottom
+    appendix-style: plain 
+    # Optional: adds a hover preview for citations
+    citation-hover: true
+
+execute:
+  freeze: auto
+  echo: true
+  warning: false
+  message: false
+

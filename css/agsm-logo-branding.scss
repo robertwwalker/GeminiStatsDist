@@ -1,0 +1,342 @@
+/*-- scss:defaults --*/
+// AGSM Logo Branding Variables
+// Add these to css/steampunk-art-nouveau.scss
+
+$logo-path: '../images/agsm-logo.jpeg';
+$logo-navbar-height: 50px;
+$logo-footer-height: 80px;
+$logo-sidebar-width: 120px;
+$logo-badge-width: 100px;
+$logo-floating-width: 80px;
+
+$logo-opacity: 0.85;
+$logo-opacity-hover: 1;
+$logo-watermark-opacity: 0.03;
+
+/*-- scss:rules --*/
+// AGSM Logo Branding Styles
+// Add these to the bottom of css/steampunk-art-nouveau.scss
+
+// Navbar Integration (Recommended)
+.navbar-brand-with-logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  
+  img {
+    height: $logo-navbar-height;
+    width: auto;
+    opacity: $logo-opacity;
+    transition: opacity 0.3s ease;
+    
+    &:hover {
+      opacity: $logo-opacity-hover;
+    }
+  }
+  
+  .brand-text {
+    font-family: $font-family-serif;
+    
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, $lavender, $pink, $pale-yellow);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .subtitle {
+      font-size: 0.75rem;
+      color: $periwinkle;
+      font-style: italic;
+      margin-top: 0.25rem;
+    }
+  }
+}
+
+// Footer Branding (Professional)
+.footer-institutional {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 0 1rem;
+  border-top: 1px solid rgba($lavender, 0.1);
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 1px;
+    background: linear-gradient(
+      to right, 
+      transparent, 
+      rgba($lavender, 0.3), 
+      rgba($pink, 0.5), 
+      rgba($lavender, 0.3), 
+      transparent
+    );
+  }
+  
+  img {
+    height: $logo-footer-height;
+    width: auto;
+    opacity: $logo-opacity;
+    filter: brightness(1.1);
+  }
+  
+  .affiliation {
+    font-family: $font-family-serif;
+    font-size: 0.875rem;
+    color: $periwinkle;
+    font-style: italic;
+    text-align: center;
+    line-height: 1.6;
+    
+    strong {
+      color: $lavender;
+    }
+  }
+}
+
+// Subtle Watermark
+.content-with-watermark {
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: fixed;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+    width: 200px;
+    height: 200px;
+    background-image: url($logo-path);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: $logo-watermark-opacity;
+    pointer-events: none;
+    z-index: -1;
+  }
+}
+
+// Sidebar Branding
+.sidebar-institutional {
+  padding: 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid rgba($lavender, 0.2);
+  margin-bottom: 1.5rem;
+  background: linear-gradient(
+    135deg, 
+    rgba($bg-light, 0.5), 
+    rgba($bg-medium, 0.5)
+  );
+  border-radius: 1rem;
+  
+  img {
+    width: $logo-sidebar-width;
+    height: auto;
+    margin-bottom: 0.75rem;
+    opacity: $logo-opacity;
+  }
+  
+  .affiliation-text {
+    font-family: $font-family-serif;
+    font-size: 0.75rem;
+    color: $periwinkle;
+    line-height: 1.4;
+    
+    strong {
+      color: $lavender;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+  }
+}
+
+// Hero Badge (for homepage)
+.hero-institutional-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba($bg-dark, 0.95);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba($lavender, 0.3);
+  border-radius: 0.75rem;
+  padding: 0.75rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 5;
+  
+  img {
+    display: block;
+    width: $logo-badge-width;
+    height: auto;
+    opacity: 0.95;
+  }
+  
+  .badge-label {
+    font-family: $font-family-serif;
+    font-size: 0.625rem;
+    color: $pale-yellow;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+}
+
+// Page Header with Logo
+.institutional-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid rgba($lavender, 0.2);
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(to right, $lavender, $pink);
+  }
+  
+  .title-section {
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: $lavender;
+      font-family: $font-family-serif;
+    }
+    
+    .subtitle {
+      font-size: 0.875rem;
+      color: $periwinkle;
+      font-style: italic;
+      margin-top: 0.25rem;
+    }
+  }
+  
+  .logo-section {
+    img {
+      height: 60px;
+      width: auto;
+      opacity: $logo-opacity;
+    }
+  }
+}
+
+// Floating Badge
+.floating-institutional-badge {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: linear-gradient(
+    135deg, 
+    rgba($bg-light, 0.95), 
+    rgba($bg-medium, 0.95)
+  );
+  backdrop-filter: blur(15px);
+  border: 2px solid rgba($lavender, 0.3);
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 48px rgba($lavender, 0.2);
+    border-color: rgba($lavender, 0.5);
+  }
+  
+  img {
+    display: block;
+    width: $logo-floating-width;
+    height: auto;
+  }
+  
+  .badge-text {
+    font-family: $font-family-serif;
+    font-size: 0.625rem;
+    color: $periwinkle;
+    text-align: center;
+    margin-top: 0.5rem;
+    line-height: 1.3;
+  }
+}
+
+// Contact Card with Logo
+.contact-card-institutional {
+  position: relative;
+  overflow: hidden;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 100px;
+    height: 100px;
+    background-image: url($logo-path);
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.08;
+    transform: rotate(-15deg);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .navbar-brand-with-logo img {
+    height: 40px;
+  }
+  
+  .footer-institutional img {
+    height: 60px;
+  }
+  
+  .content-with-watermark::before {
+    width: 120px;
+    height: 120px;
+    right: 2%;
+  }
+  
+  .floating-institutional-badge {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.75rem;
+    
+    img {
+      width: 60px;
+    }
+  }
+  
+  .hero-institutional-badge {
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.5rem;
+    
+    img {
+      width: 70px;
+    }
+  }
+  
+  .institutional-page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    
+    .logo-section img {
+      height: 50px;
+    }
+  }
+}

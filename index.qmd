@@ -1,19 +1,14 @@
 ---
-title: "Using Gemini for a Distributions App"
-author: "RWW"
-format: html
+title: "Gemini Statistics Tools"
+listing:
+  contents: /
+  sort: "date desc"
+  type: grid
+  categories: true
+  sort-ui: true
+  filter-ui: true
+  page-size: 12
+  fields: [image, date, title, description, categories]
+page-layout: full
 ---
 
-I have built a few apps with Gemini using the shinylive technology to use the browser to compute. This page provides a landing for access to each individual project.  The interactions with Gemini and the resultant apps are on each page.  A few general themes.  (1) base R is far easier because of package version matching for the `shinylive` framework.  (2) bslib works well for maintaining consistent styles.  I stopped caring.
-
-## Sampling From Statistical Distributions
-
-[Sampling and Plotting Distributions](./StatSample.html)
-
-## A Probability Calculator
-
-[Probability Calculator](./ProbCalcluate.html)
-
-## Central Limit Theorem
-
-[Central Limit Theorem Illustrator](./CenLim.html)

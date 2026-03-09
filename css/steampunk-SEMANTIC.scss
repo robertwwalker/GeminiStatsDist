@@ -1,0 +1,540 @@
+/*-- scss:defaults --*/
+
+// Art Nouveau Steampunk Color Palette
+$lavender: #AF98E6;
+$pink: #DA99E6;
+$pale-yellow: #E5DD97;
+$rose: #DD92C5;
+$periwinkle: #9CA6E3;
+
+// Deep Purple Palette
+$bg-darkest: #1a0f2e;
+$bg-dark: #22133a;
+$bg-medium: #2a1a45;
+$bg-light: #362756;
+$bg-lighter: #453465;
+
+// Text Colors
+$text-primary: #e8e9ed;
+$text-secondary: #b4b7be;
+$text-muted: #9ca3b0;
+$text-faint: #7a7f8c;
+
+// Fonts
+$font-family-serif: 'Baskerville', 'Georgia', serif;
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+// Base styles
+$body-bg: $bg-dark;
+$body-color: $text-primary;
+$link-color: $lavender;
+$link-hover-color: $pink;
+
+/*-- scss:rules --*/
+
+/* =======================================================
+   SEMANTIC STYLING - CLEAN QUARTO FILES
+   All styling here, minimal markup needed in .qmd files
+   ======================================================= */
+
+/* Body and Layout */
+body {
+  background-color: $bg-dark;
+  color: $text-primary;
+  font-family: $font-family-serif;
+  line-height: 1.7;
+}
+
+#quarto-content {
+  background: linear-gradient(
+    135deg,
+    rgba($bg-medium, 0.3) 0%,
+    transparent 50%,
+    rgba($bg-light, 0.2) 100%
+  );
+}
+
+/* Typography - Automatic Styling */
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-serif;
+  font-weight: 700;
+  color: $text-primary;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, $lavender, $pink, $pale-yellow);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  border-bottom: 3px solid rgba($lavender, 0.3);
+  padding-bottom: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+h2 {
+  font-size: 2rem;
+  color: $pink;
+  border-left: 4px solid $lavender;
+  padding-left: 1rem;
+  margin-top: 3rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: $periwinkle;
+}
+
+h4 {
+  font-size: 1.25rem;
+  color: $pale-yellow;
+}
+
+/* Paragraphs */
+p {
+  margin-bottom: 1.2rem;
+  color: $text-secondary;
+  font-size: 1.05rem;
+}
+
+/* Links - Automatic Elegant Style */
+a {
+  color: $lavender;
+  text-decoration: none;
+  border-bottom: 1px solid rgba($lavender, 0.3);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    color: $pink;
+    border-bottom-color: $pink;
+  }
+}
+
+/* Lists - Automatic Styling */
+ul, ol {
+  margin: 1.5rem 0;
+  padding-left: 2rem;
+  
+  li {
+    margin-bottom: 0.75rem;
+    color: $text-secondary;
+    
+    &::marker {
+      color: $lavender;
+    }
+  }
+}
+
+/* Diamond bullets ONLY for content lists, not navigation/menus/tabsets */
+#quarto-content ul:not(.nav):not(.navbar-nav):not(.dropdown-menu):not(.nav-tabs):not(.nav-pills) li::marker {
+  content: '◆ ';
+}
+
+/* Reset for UI elements */
+.navbar ul li::marker,
+.nav ul li::marker,
+.dropdown-menu li::marker,
+.nav-tabs li::marker,
+.nav-pills li::marker,
+.sidebar ul li::marker {
+  content: normal;
+}
+
+/* Blockquotes - Automatic Art Nouveau Style */
+blockquote {
+  margin: 2rem 0;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, rgba($bg-light, 0.5), rgba($bg-medium, 0.3));
+  border-left: 4px solid $pale-yellow;
+  border-radius: 0 0.5rem 0.5rem 0;
+  position: relative;
+  
+  &::before {
+    content: '"';
+    position: absolute;
+    left: 0.5rem;
+    top: -0.5rem;
+    font-size: 4rem;
+    color: rgba($pale-yellow, 0.3);
+    font-family: Georgia, serif;
+  }
+  
+  p {
+    color: $text-primary;
+    font-style: italic;
+    margin: 0;
+  }
+}
+
+/* Code - Automatic Styling */
+code {
+  background-color: rgba($bg-light, 0.7);
+  color: $pale-yellow;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+  border: 1px solid rgba($lavender, 0.2);
+}
+
+pre {
+  background-color: $bg-light !important;
+  border: 1px solid rgba($lavender, 0.3);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  
+  code {
+    background: none;
+    border: none;
+    padding: 0;
+    color: $text-secondary;
+  }
+}
+
+/* Tables - Automatic Elegant Styling */
+table {
+  width: 100%;
+  margin: 2rem 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid rgba($lavender, 0.3);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  
+  thead {
+    background: linear-gradient(135deg, rgba($lavender, 0.3), rgba($pink, 0.2));
+    
+    th {
+      padding: 1rem;
+      text-align: left;
+      color: $text-primary;
+      font-weight: 700;
+      border-bottom: 2px solid rgba($lavender, 0.5);
+    }
+  }
+  
+  tbody {
+    tr {
+      transition: background-color 0.2s ease;
+      
+      &:hover {
+        background-color: rgba($bg-light, 0.4);
+      }
+      
+      &:not(:last-child) td {
+        border-bottom: 1px solid rgba($bg-lighter, 0.3);
+      }
+    }
+    
+    td {
+      padding: 0.875rem 1rem;
+      color: $text-secondary;
+    }
+  }
+}
+
+/* Horizontal Rules */
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba($lavender, 0.5) 20%,
+    rgba($pink, 0.7) 50%,
+    rgba($rose, 0.5) 80%,
+    transparent
+  );
+  margin: 3rem 0;
+}
+
+/* Custom Divs - Simple Class Names */
+
+/* Highlight boxes */
+.highlight-box {
+  padding: 1.5rem 2rem;
+  margin: 2rem 0;
+  background: linear-gradient(135deg, rgba($pale-yellow, 0.1), rgba($rose, 0.05));
+  border: 2px solid rgba($pale-yellow, 0.4);
+  border-radius: 0.75rem;
+  position: relative;
+  
+  &::before {
+    content: '✦';
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    font-size: 1.5rem;
+    color: $pale-yellow;
+  }
+  
+  strong {
+    color: $pale-yellow;
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    color: $text-primary;
+    margin: 0;
+    padding-left: 2rem;
+  }
+}
+
+/* Affiliation boxes */
+.affiliation-box {
+  padding: 1.5rem;
+  margin: 2rem 0;
+  background: linear-gradient(135deg, rgba($bg-light, 0.6), rgba($bg-medium, 0.4));
+  border-left: 4px solid $lavender;
+  border-radius: 0.5rem;
+  text-align: center;
+  
+  strong {
+    color: $lavender;
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  
+  p {
+    color: $periwinkle;
+    margin: 0.25rem 0;
+  }
+}
+
+/* Info boxes */
+.info-box {
+  padding: 1.5rem;
+  margin: 2rem 0;
+  background: rgba($periwinkle, 0.05);
+  border: 1px solid rgba($periwinkle, 0.3);
+  border-radius: 0.5rem;
+  border-left-width: 4px;
+}
+
+/* Callouts - Override Quarto defaults */
+.callout {
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border-left-width: 4px;
+  
+  &.callout-note {
+    background: rgba($periwinkle, 0.08);
+    border-color: $periwinkle;
+  }
+  
+  &.callout-tip {
+    background: rgba($pale-yellow, 0.08);
+    border-color: $pale-yellow;
+  }
+  
+  &.callout-important {
+    background: rgba($pink, 0.08);
+    border-color: $pink;
+  }
+  
+  &.callout-warning {
+    background: rgba($rose, 0.08);
+    border-color: $rose;
+  }
+}
+
+/* Navbar - Clean and Elegant */
+.navbar {
+  background-color: rgba($bg-dark, 0.95) !important;
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba($lavender, 0.2);
+  
+  .navbar-brand {
+    font-family: $font-family-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: $lavender !important;
+    
+    &:hover {
+      color: $pink !important;
+    }
+  }
+  
+  .nav-link {
+    font-family: $font-family-serif;
+    color: $text-secondary !important;
+    transition: all 0.3s ease;
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%) scaleX(0);
+      width: 80%;
+      height: 2px;
+      background: $lavender;
+      transition: transform 0.3s ease;
+    }
+    
+    &:hover {
+      color: $lavender !important;
+      
+      &::after {
+        transform: translateX(-50%) scaleX(1);
+      }
+    }
+    
+    &.active {
+      color: $lavender !important;
+      font-weight: 600;
+    }
+  }
+}
+
+/* Footer */
+.nav-footer {
+  background-color: rgba($bg-dark, 0.95);
+  border-top: 2px solid rgba($lavender, 0.2);
+  padding: 2rem 0;
+  margin-top: 4rem;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      $lavender 20%,
+      $pink 50%,
+      $rose 80%,
+      transparent
+    );
+  }
+}
+
+/* Page Title */
+.quarto-title {
+  margin-bottom: 2rem;
+  
+  .title {
+    font-family: $font-family-serif;
+    background: linear-gradient(135deg, $lavender, $pink);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .subtitle {
+    color: $periwinkle;
+    font-style: italic;
+  }
+}
+
+/* Sidebar (for listing pages) */
+.sidebar {
+  background-color: rgba($bg-light, 0.4);
+  border-right: 1px solid rgba($lavender, 0.2);
+  
+  .sidebar-title {
+    color: $lavender;
+    font-weight: 700;
+  }
+}
+
+/* Listing pages */
+.quarto-listing {
+  .listing-item {
+    background: linear-gradient(135deg, rgba($bg-light, 0.4), rgba($bg-medium, 0.3));
+    border: 1px solid rgba($lavender, 0.2);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      border-color: rgba($lavender, 0.5);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+  }
+  
+  .listing-title a {
+    color: $lavender;
+    border: none;
+    
+    &:hover {
+      color: $pink;
+    }
+  }
+}
+
+/* Buttons */
+.btn {
+  font-family: $font-family-serif;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, $lavender, $pink);
+  color: $bg-dark;
+  border: none;
+  
+  &:hover {
+    background: linear-gradient(135deg, $pink, $rose);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba($lavender, 0.3);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.25rem; }
+  
+  blockquote {
+    padding: 1rem 1.5rem;
+  }
+}
+
+/* Dark mode support (respects user preference) */
+@media (prefers-color-scheme: light) {
+  body {
+    /* Keep dark theme regardless - it's the design */
+  }
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+  
+  a {
+    color: black;
+    text-decoration: underline;
+  }
+  
+  .navbar, .nav-footer {
+    display: none;
+  }
+}
+
+/* Smooth animations */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    scroll-behavior: smooth;
+  }
+}

@@ -1,0 +1,449 @@
+/*-- scss:defaults --*/
+
+// Art Nouveau Steampunk Color Palette
+$lavender: #AF98E6;
+$pink: #DA99E6;
+$pale-yellow: #E5DD97;
+$rose: #DD92C5;
+$periwinkle: #9CA6E3;
+
+// Deep Gray Palette
+$bg-darkest: #0f1115;
+$bg-dark: #16181d;
+$bg-medium: #1a1c20;
+$bg-light: #2a2d35;
+$bg-lighter: #3a3d45;
+
+// Text Colors
+$text-primary: #e8e9ed;
+$text-secondary: #b4b7be;
+$text-muted: #9ca3b0;
+$text-faint: #7a7f8c;
+
+// Fonts
+$font-family-serif: 'Baskerville', 'Georgia', serif;
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+// Base styles
+$body-bg: $bg-dark;
+$body-color: $text-primary;
+$link-color: $lavender;
+$link-hover-color: $pink;
+
+// Code blocks
+$code-bg: $bg-light;
+$code-color: $pale-yellow;
+
+/*-- scss:rules --*/
+
+// Body and base styles
+body {
+  background-color: $bg-dark;
+  color: $text-primary;
+  font-family: $font-family-serif;
+  position: relative;
+  overflow-x: hidden;
+}
+
+// Flowing background gradients
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  right: 25%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(175, 152, 230, 0.3) 0%, rgba(218, 153, 230, 0.15) 50%, transparent 100%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.25;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(221, 146, 197, 0.2) 0%, rgba(156, 166, 227, 0.1) 50%, transparent 100%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.25;
+}
+
+// Decorative curved top border
+.navbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  opacity: 0.15;
+  pointer-events: none;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 20"><path d="M0,15 Q200,5 400,15 T800,15 T1200,15 T1600,15 T2000,15" stroke="%23AF98E6" stroke-width="1.5" fill="none"/><path d="M0,30 Q250,20 500,30 T1000,30 T1500,30 T2000,30" stroke="%23DA99E6" stroke-width="1" fill="none"/></svg>') repeat-x bottom;
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-serif;
+  font-weight: 700;
+  color: $text-primary;
+}
+
+h1 {
+  background: linear-gradient(135deg, $lavender, $pink, $pale-yellow);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h2 {
+  color: $pink;
+  border-bottom: 2px solid rgba($lavender, 0.2);
+  padding-bottom: 0.5rem;
+  margin-top: 2rem;
+  position: relative;
+}
+
+h2::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(to right, $lavender, $pink);
+}
+
+h3 {
+  color: $periwinkle;
+  margin-top: 1.5rem;
+}
+
+// Links
+a {
+  color: $lavender;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    color: $pink;
+    text-decoration: none;
+  }
+}
+
+// Navbar
+.navbar {
+  background-color: rgba($bg-dark, 0.95) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba($lavender, 0.1);
+  padding: 1rem 0;
+  
+  .navbar-brand {
+    font-family: $font-family-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, $lavender, $pink, $pale-yellow);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .navbar-nav .nav-link {
+    color: $text-secondary !important;
+    font-family: $font-family-serif;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      color: $text-primary !important;
+      background: linear-gradient(to right, rgba($lavender, 0.15), rgba($pink, 0.15));
+      border: 1px solid rgba($lavender, 0.3);
+    }
+  }
+}
+
+// Cards and containers
+.card {
+  background: linear-gradient(135deg, rgba($bg-light, 0.6), rgba($bg-medium, 0.6));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba($lavender, 0.2);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    border-color: rgba($lavender, 0.4);
+    box-shadow: 0 8px 32px rgba($lavender, 0.1);
+  }
+}
+
+// Blockquotes with ornamental style
+blockquote {
+  border-left: 3px solid $pale-yellow;
+  padding-left: 1.5rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: $pale-yellow;
+  position: relative;
+  
+  &::before {
+    content: '✦';
+    position: absolute;
+    left: -0.5rem;
+    top: 0;
+    color: $pale-yellow;
+    font-size: 0.8rem;
+  }
+}
+
+// Code blocks
+pre {
+  background-color: $bg-light !important;
+  border: 1px solid rgba($lavender, 0.2);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  
+  code {
+    color: $text-secondary;
+    font-size: 0.9rem;
+  }
+}
+
+code {
+  background-color: rgba($bg-light, 0.5);
+  color: $pale-yellow;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+}
+
+// Tables
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid rgba($lavender, 0.2);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  
+  thead {
+    background: linear-gradient(135deg, rgba($lavender, 0.2), rgba($pink, 0.2));
+    
+    th {
+      color: $text-primary;
+      font-weight: 700;
+      padding: 1rem;
+      border-bottom: 2px solid rgba($lavender, 0.3);
+    }
+  }
+  
+  tbody tr {
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      background-color: rgba($bg-light, 0.5);
+    }
+    
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba($bg-lighter, 0.5);
+    }
+  }
+}
+
+// Buttons
+.btn {
+  border-radius: 20px;
+  padding: 0.5rem 1.5rem;
+  font-family: $font-family-serif;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, $lavender, $pink);
+  color: $bg-dark;
+  border: none;
+  
+  &:hover {
+    background: linear-gradient(135deg, $pink, $rose);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba($lavender, 0.3);
+  }
+}
+
+// Footer
+.nav-footer {
+  background-color: $bg-dark;
+  border-top: 1px solid rgba($lavender, 0.1);
+  padding: 2rem 0;
+  margin-top: 4rem;
+  font-size: 0.875rem;
+  color: $text-faint;
+  font-family: $font-family-serif;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, $lavender 30%, $pink 50%, $rose 70%, transparent);
+    opacity: 0.3;
+  }
+  
+  a {
+    color: $periwinkle;
+    
+    &:hover {
+      color: $lavender;
+    }
+  }
+}
+
+// Special callout boxes
+.callout {
+  border-left: 3px solid;
+  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  background: rgba($bg-light, 0.5);
+  
+  &.callout-note {
+    border-color: $periwinkle;
+    background: rgba($periwinkle, 0.05);
+  }
+  
+  &.callout-tip {
+    border-color: $pale-yellow;
+    background: rgba($pale-yellow, 0.05);
+  }
+  
+  &.callout-warning {
+    border-color: $rose;
+    background: rgba($rose, 0.05);
+  }
+  
+  &.callout-important {
+    border-color: $pink;
+    background: rgba($pink, 0.05);
+  }
+}
+
+// Sidebar styling
+.sidebar {
+  background-color: rgba($bg-light, 0.5);
+  border-right: 1px solid rgba($lavender, 0.2);
+  
+  .sidebar-title {
+    color: $lavender;
+    font-weight: 700;
+  }
+  
+  .sidebar-item {
+    .sidebar-item-text {
+      color: $text-secondary;
+      transition: color 0.2s ease;
+      
+      &:hover {
+        color: $lavender;
+      }
+    }
+  }
+}
+
+// Listing pages (blog, publications)
+.quarto-listing {
+  .listing-item {
+    background: linear-gradient(135deg, rgba($bg-light, 0.6), rgba($bg-medium, 0.6));
+    border: 1px solid rgba($lavender, 0.2);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      border-color: rgba($lavender, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba($lavender, 0.1);
+    }
+    
+    .listing-title {
+      color: $lavender;
+      font-weight: 700;
+      
+      a {
+        color: $lavender;
+        
+        &:hover {
+          color: $pink;
+        }
+      }
+    }
+    
+    .listing-description {
+      color: $text-secondary;
+    }
+    
+    .listing-date {
+      color: $text-muted;
+      font-size: 0.875rem;
+    }
+    
+    .listing-categories {
+      .listing-category {
+        background-color: rgba($periwinkle, 0.2);
+        color: $periwinkle;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.875rem;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+}
+
+// Figure captions
+figcaption {
+  color: $text-muted;
+  font-style: italic;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+// Smooth scrolling
+html {
+  scroll-behavior: smooth;
+}
+
+// Selection styling
+::selection {
+  background-color: rgba($lavender, 0.3);
+  color: $text-primary;
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: $bg-medium;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, $lavender, $pink);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, $pink, $rose);
+}
