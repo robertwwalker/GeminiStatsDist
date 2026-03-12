@@ -1,0 +1,15 @@
+---
+title: "Using Gemini for Sampling Means from Statistical Distributions and the Central Limit Theorem"
+author: "RWW"
+format: html
+---
+
+## Central Limit Theorem
+
+::: {.callout-tip}
+# Prompt
+
+I want to build a shinylive app to demonstrate the central limit theorem.  It should be able to choose three things: the distribution to be sampled from, the sample size for the means, and the number of samples.  It should make available the normal, exponential, beta, lognormal, binomial, Poisson, geometric, negative binomial, chi-square and F distributions with a reactive menu to input the parameters for the respective statistical distribution
+:::
+
+The result is [this app](./CLT/)

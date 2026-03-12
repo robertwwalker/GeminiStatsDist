@@ -26,6 +26,10 @@ format:
 
 [The Central Limit Theorem App](./CenLim.html)
 
+OR
+
+[The Central Limit Theorem App](./CenLim/)
+
 :::
 
 :::{.card}
@@ -34,6 +38,10 @@ format:
 
 [A Sampling App](./StatSample.html)
 
+OR
+
+[A Sampling App](./StatSample/)
+
 :::
 
 :::{.card}
@@ -41,6 +49,10 @@ format:
 ## Probability Calculator
 
 [A Probability Calculator](./ProbCalculate.html)
+
+OR
+
+[A Probability Calculator](./ProbCalculate/)
 
 :::
 
