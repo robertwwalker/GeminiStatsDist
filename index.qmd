@@ -48,7 +48,7 @@ OR
 
 ## Probability Calculator
 
-[A Probability Calculator](./ProbCalculate.html)
+[A Probability Calculator](./ProbCalcluate.html)
 
 OR
 
