@@ -1,0 +1,12 @@
+title: RWW Website Theme
+author: Robert W. Walker
+version: 1.0.0
+quarto-required: ">=1.2.0"
+contributes:
+  formats:
+    html:
+      theme: custom.scss
+ 
+      # This tells Quarto to copy the images folder to the rendered output
+      resources: 
+        - images/

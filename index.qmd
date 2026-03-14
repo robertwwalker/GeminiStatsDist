@@ -4,16 +4,13 @@ format:
   html:
     theme: 
       - cosmo
-      - css/steampunk-SEMANTIC.scss
-    css: 
-      - css/custom-cards.css
+      - css/custom.scss
     toc: false
     smooth-scroll: true
     link-external-newwindow: true
     code-copy: true
     code-overflow: wrap
     highlight-style: monokai
-    mainfont: "Baskerville, Georgia, serif"
     fontsize: 1em
     linestretch: 1.6
 ---

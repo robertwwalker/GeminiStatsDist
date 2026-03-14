@@ -1,0 +1,1457 @@
+/*-- scss:defaults --*/
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
+
+/* =======================================================
+   Robert W. Walker site theme
+   Single drop-in SCSS replacement
+
+   This file absorbs and unifies:
+   - original custom.scss core theme
+   - navbar-branding.css
+   - floating-card-standalone.css
+   - rww-cards.css
+   - rww-circles.css
+   - circles-research.css
+   - circles-listing.css
+
+   Goal:
+   - preserve existing class hooks and page markup
+   - reduce duplicated visual rules
+   - keep Quarto overrides in one place
+   ======================================================= */
+
+/* ---------- Color palette ---------- */
+$lavender: #AF98E6;
+$pink: #DA99E6;
+$pale-yellow: #E5DD97;
+$rose: #DD92C5;
+$periwinkle: #9CA6E3;
+
+$bg-darkest: #1a0f2e;
+$bg-dark: #22133a;
+$bg-medium: #2a1a45;
+$bg-light: #362756;
+$bg-lighter: #453465;
+
+/* ---------- Text palette ---------- */
+$text-primary: #d7c8ee;
+$text-secondary: #cab9e6;
+$text-muted: #bca9dd;
+$text-heading: #edd8f8;
+$text-heading-strong: #f0b8ea;
+$text-faint: #9e8fbb;
+$text-overlay: #E8BADB;
+$text-overlay-strong: #F5D5EC;
+
+/* ---------- Typography ---------- */
+$font-family-body: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+$font-family-headings: 'Cinzel', Georgia, serif;
+$font-family-display: 'Cormorant Garamond', Georgia, serif;
+
+/* ---------- Quarto / Bootstrap hooks ---------- */
+$body-bg: $bg-dark;
+$body-color: $text-primary;
+$link-color: $lavender;
+$link-hover-color: $pale-yellow;
+$headings-color: $text-heading;
+$font-family-base: $font-family-body;
+$headings-font-family: $font-family-headings;
+
+/* ---------- Spacing ---------- */
+$space-1: 0.5rem;
+$space-2: 0.75rem;
+$space-3: 1rem;
+$space-4: 1.25rem;
+$space-5: 1.5rem;
+$space-6: 2rem;
+$space-7: 2.5rem;
+$space-8: 3rem;
+
+/* ---------- Radii ---------- */
+$radius-sm: 0.5rem;
+$radius-md: 0.95rem;
+$radius-lg: 1.25rem;
+$radius-xl: 1.5rem;
+
+/* ---------- Shared surfaces ---------- */
+$panel-bg: rgba($bg-light, 0.18);
+$panel-bg-2: rgba($bg-medium, 0.16);
+$panel-bg-soft: rgba($bg-light, 0.12);
+$panel-border: rgba($lavender, 0.06);
+$panel-border-strong: rgba($pink, 0.08);
+$panel-highlight: rgba(255, 255, 255, 0.06);
+
+/* ---------- Shadows ---------- */
+$shadow-deep: 0 16px 40px rgba(0, 0, 0, 0.32);
+$shadow-soft: 0 10px 28px rgba(0, 0, 0, 0.20);
+$shadow-float: 0 20px 56px rgba(0, 0, 0, 0.36);
+$shadow-hero: 0 25px 80px rgba(0, 0, 0, 0.5), 0 0 60px rgba($lavender, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+$shadow-glow: 0 0 24px rgba($lavender, 0.08);
+$shadow-circle: 0 4px 20px rgba(0, 0, 0, 0.15), 0 0 25px rgba($pink, 0.08);
+$shadow-circle-hover: 0 12px 40px rgba(0, 0, 0, 0.25), 0 0 50px rgba($text-overlay, 0.3);
+
+/* ---------- Overlay system ---------- */
+$overlay-pad-left: 10%;
+$overlay-pad-left-md: 8%;
+$overlay-pad-left-sm: 5%;
+$overlay-top: 25vh;
+$overlay-top-md: 20vh;
+$overlay-top-sm: 15vh;
+$circle-size: 173px;
+$circle-size-md: 168px;
+$circle-size-sm: 152px;
+$circle-gap: 0.5rem;
+$circle-max-width: 720px;
+$circle-font-size: 1.28rem;
+$circle-font-size-md: 1.2rem;
+$circle-font-size-sm: 1.05rem;
+
+/* ---------- Shared mixins ---------- */
+@mixin glass-surface($bg1: rgba($bg-light, 0.16), $bg2: rgba($bg-medium, 0.14), $border: rgba($lavender, 0.06), $blur: 22px) {
+  background: linear-gradient(135deg, $bg1, $bg2);
+  border: 1px solid $border;
+  backdrop-filter: blur($blur) saturate(120%);
+  -webkit-backdrop-filter: blur($blur) saturate(120%);
+}
+
+@mixin glass-top-sheen() {
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05), transparent 22%);
+  }
+}
+
+@mixin overlay-body($overlay-class) {
+  body:has(.#{$overlay-class}) {
+    min-height: 100vh !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@mixin overlay-hide-sidebar($overlay-class) {
+  body:has(.#{$overlay-class}) .sidebar,
+  body:has(.#{$overlay-class}) #quarto-sidebar,
+  body:has(.#{$overlay-class}) .sidebar-navigation,
+  body:has(.#{$overlay-class}) #quarto-margin-sidebar {
+    display: none !important;
+  }
+}
+
+@mixin overlay-content-shell($overlay-class) {
+  body:has(.#{$overlay-class}) #quarto-content {
+    min-height: auto !important;
+    padding-top: $overlay-top !important;
+    padding-bottom: 0 !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    flex: 1 !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    max-width: none !important;
+    width: 100% !important;
+  }
+
+  body:has(.#{$overlay-class}) .column-body,
+  body:has(.#{$overlay-class}) .column-page,
+  body:has(.#{$overlay-class}) .column-body-outset,
+  body:has(.#{$overlay-class}) .page-columns {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  body:has(.#{$overlay-class}) main.content,
+  body:has(.#{$overlay-class}) .page-layout-article .content,
+  body:has(.#{$overlay-class}) .page-layout-custom .content {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    flex: 0 0 auto !important;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: $overlay-pad-left !important;
+  }
+
+  body:has(.#{$overlay-class}) main.content::before,
+  body:has(.#{$overlay-class}) .page-layout-article .content::before,
+  body:has(.#{$overlay-class}) .page-layout-custom .content::before {
+    display: none !important;
+    content: none !important;
+  }
+
+  body:has(.#{$overlay-class}) .nav-footer,
+  body:has(.#{$overlay-class}) .page-footer {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+    font-size: 0.75rem !important;
+  }
+
+  body:has(.#{$overlay-class}) h1.title,
+  body:has(.#{$overlay-class}) .title {
+    text-align: left !important;
+    font-family: $font-family-headings !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.05em !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: $periwinkle !important;
+  }
+
+  @media (max-width: 768px) {
+  .home-hero-overlay {
+    margin-top: 2rem;
+    padding: 0 1rem;
+  }
+
+  .home-bubble {
+    padding: 1.5rem;
+    border-radius: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+    body:has(.#{$overlay-class}) #quarto-content {
+      padding-top: $overlay-top-md !important;
+    }
+
+    body:has(.#{$overlay-class}) main.content,
+    body:has(.#{$overlay-class}) .page-layout-article .content,
+    body:has(.#{$overlay-class}) .page-layout-custom .content {
+      padding-left: $overlay-pad-left-md !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    body:has(.#{$overlay-class}) #quarto-content {
+      padding-top: $overlay-top-sm !important;
+    }
+
+    body:has(.#{$overlay-class}) main.content,
+    body:has(.#{$overlay-class}) .page-layout-article .content,
+    body:has(.#{$overlay-class}) .page-layout-custom .content {
+      padding-left: $overlay-pad-left-sm !important;
+    }
+  }
+}
+
+@mixin circle-grid($overlay-class) {
+  body:has(.#{$overlay-class}) .circle-grid,
+  body:has(.#{$overlay-class}) #listing-listing,
+  body:has(.#{$overlay-class}) .quarto-listing-container-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: $circle-gap !important;
+    max-width: $circle-max-width !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    justify-items: start !important;
+  }
+
+  body:has(.#{$overlay-class}) .circle-grid.single-row {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  @media (max-width: 768px) {
+    body:has(.#{$overlay-class}) .circle-grid,
+    body:has(.#{$overlay-class}) #listing-listing,
+    body:has(.#{$overlay-class}) .quarto-listing-container-grid,
+    body:has(.#{$overlay-class}) .circle-grid.single-row {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    body:has(.#{$overlay-class}) .circle-grid,
+    body:has(.#{$overlay-class}) #listing-listing,
+    body:has(.#{$overlay-class}) .quarto-listing-container-grid,
+    body:has(.#{$overlay-class}) .circle-grid.single-row {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    body:has(.#{$overlay-class}) .circle-grid,
+    body:has(.#{$overlay-class}) .circle-grid.single-row {
+      grid-template-columns: repeat(3, 1fr) !important;
+    }
+  }
+}
+
+@mixin circle-card-shell($selector) {
+  #{$selector} {
+    position: relative;
+    width: $circle-size;
+    height: $circle-size;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    #{$selector} {
+      width: $circle-size-md;
+      height: $circle-size-md;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #{$selector} {
+      width: $circle-size-sm;
+      height: $circle-size-sm;
+    }
+  }
+}
+
+@mixin circle-surface($selector) {
+  #{$selector} {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 50% !important;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border: 1.5px solid rgba($pink, 0.25) !important;
+    box-shadow: $shadow-circle !important;
+    color: $text-overlay !important;
+    text-decoration: none !important;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: floatSpot 6s ease-in-out infinite;
+    cursor: pointer;
+    font-family: $font-family-headings !important;
+    font-size: $circle-font-size !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.1em !important;
+    line-height: 1.2;
+    text-transform: uppercase;
+    padding: 1rem !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+  }
+
+  #{$selector}::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      rgba($text-overlay, 0.4) 90deg,
+      rgba($text-overlay-strong, 0.5) 180deg,
+      rgba($pink, 0.4) 270deg,
+      transparent 360deg
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    animation: rotateGlow 3s linear infinite;
+    z-index: -1;
+  }
+
+  #{$selector}::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(circle at 28% 24%, rgba(255,255,255,0.14), transparent 34%);
+    opacity: 0.8;
+    transition: opacity 0.4s ease;
+  }
+
+  #{$selector}:hover,
+  #{$selector}:focus,
+  #{$selector}:focus-visible {
+    transform: translateY(-12px) scale(1.15) !important;
+    border-color: rgba($text-overlay, 0.5) !important;
+    background: rgba($text-overlay, 0.08) !important;
+    box-shadow: $shadow-circle-hover !important;
+    color: $text-overlay-strong !important;
+    animation: none;
+    outline: none;
+  }
+
+  #{$selector}:hover::before,
+  #{$selector}:focus-visible::before {
+    opacity: 1;
+  }
+
+  #{$selector}:hover::after,
+  #{$selector}:focus-visible::after {
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    #{$selector} {
+      font-size: $circle-font-size-md !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #{$selector} {
+      font-size: $circle-font-size-sm !important;
+    }
+  }
+}
+
+/*-- scss:rules --*/
+
+/* =======================================================
+   Base document
+   ======================================================= */
+
+html {
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  background: $bg-dark;
+  color: $text-primary;
+  font-family: $font-family-body;
+  line-height: 1.65;
+  letter-spacing: 0.01em;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  background: url("images/Banner.webp") center center / cover no-repeat;
+  filter: saturate(0.95) contrast(1.02);
+  transform: scale(1.02);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba($bg-darkest, 0.34) 0%,
+      rgba($bg-dark, 0.22) 18%,
+      rgba($bg-medium, 0.38) 44%,
+      rgba($bg-dark, 0.66) 76%,
+      rgba($bg-darkest, 0.88) 100%
+    ),
+    radial-gradient(circle at top left, rgba($lavender, 0.08), transparent 30%),
+    radial-gradient(circle at top right, rgba($rose, 0.07), transparent 28%);
+}
+
+p,
+ul,
+ol,
+dl,
+table,
+blockquote,
+pre {
+  margin-top: 0;
+  margin-bottom: $space-4;
+}
+
+ul,
+ol {
+  padding-left: 1.35rem;
+}
+
+li + li {
+  margin-top: 0.25rem;
+}
+
+p,
+li,
+dd,
+dt,
+td,
+th {
+  color: $text-secondary;
+}
+
+strong,
+b {
+  color: $pale-yellow;
+  font-weight: 700;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $text-heading;
+  line-height: 1.2;
+  margin-top: $space-6;
+  margin-bottom: $space-3;
+  font-family: $font-family-headings;
+  font-weight: 600;
+  text-wrap: balance;
+  letter-spacing: 0.05em;
+}
+
+h1,
+main h1,
+article h1,
+.content h1 {
+  color: $periwinkle !important;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: clamp(2.3rem, 4vw, 3.9rem);
+  color: $text-heading-strong;
+}
+
+h2 {
+  font-size: clamp(1.6rem, 2.5vw, 2.25rem);
+  color: $lavender;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+h3 {
+  font-size: 1.3rem;
+  color: mix($pink, $lavender, 50%);
+}
+
+h1 + p,
+h2 + p,
+h3 + p,
+h4 + p {
+  margin-top: 0;
+}
+
+a {
+  color: $lavender;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+  transition: color 0.2s ease;
+}
+
+a:hover,
+a:focus {
+  color: $pale-yellow;
+}
+
+blockquote {
+  border-left: 4px solid rgba($lavender, 0.24);
+  padding: $space-3 $space-4;
+  background: rgba($bg-medium, 0.10);
+  border-radius: 0 $radius-sm $radius-sm 0;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba($lavender, 0.18), transparent);
+  margin: $space-5 0;
+}
+
+/* =======================================================
+   Quarto wrappers
+   ======================================================= */
+
+#quarto-content,
+.quarto-container,
+.page-layout-article,
+.page-layout-custom,
+.content,
+.column-page,
+.column-body,
+.column-body-outset {
+  background: transparent !important;
+}
+
+#quarto-content {
+  position: relative;
+  min-height: 100vh;
+  padding-top: $space-3;
+  padding-bottom: $space-3;
+}
+
+.page-columns {
+  gap: $space-5;
+}
+
+main.content,
+.page-layout-article .content,
+.page-layout-custom .content {
+  position: relative;
+  background: linear-gradient(135deg, $panel-bg, $panel-bg-2);
+  border: 1px solid $panel-border;
+  border-radius: $radius-lg;
+  padding: $space-5 $space-5 $space-6;
+  margin-top: $space-3;
+  margin-bottom: $space-5;
+  box-shadow: $shadow-deep, inset 0 1px 0 rgba(255, 255, 255, 0.08), $shadow-glow;
+}
+
+main.content::before,
+.page-layout-article .content::before,
+.page-layout-custom .content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.04), transparent 22%);
+}
+
+main.content > :first-child,
+.page-layout-article .content > :first-child,
+.page-layout-custom .content > :first-child {
+  margin-top: 0 !important;
+}
+
+main.content > :last-child,
+.page-layout-article .content > :last-child,
+.page-layout-custom .content > :last-child {
+  margin-bottom: 0 !important;
+}
+
+.quarto-title-block {
+  margin-top: 0;
+  margin-bottom: $space-3;
+  padding-top: 0;
+  padding-bottom: 0;
+  background: transparent !important;
+  border: 0 !important;
+}
+
+.quarto-title-banner {
+  background: transparent !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  border: 0 !important;
+}
+
+.quarto-title-meta,
+.description,
+.abstract {
+  margin-top: $space-2;
+  margin-bottom: $space-3;
+  color: $text-muted;
+}
+
+/* =======================================================
+   Navbar
+   Fully absorbs navbar-branding.css
+   ======================================================= */
+
+.navbar {
+  background: linear-gradient(to bottom, rgba($bg-dark, 0.54), rgba($bg-dark, 0.22)) !important;
+  border-bottom: 1px solid rgba($lavender, 0.07) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
+}
+
+.navbar .container-fluid,
+.navbar .container-xxl {
+  display: flex;
+  align-items: center;
+}
+
+.navbar,
+.navbar * {
+  font-family: $font-family-headings;
+}
+
+.navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  margin-right: 1rem;
+  line-height: 1;
+  min-height: 40px;
+  text-decoration: none !important;
+  border-bottom: none !important;
+  position: relative;
+}
+
+.navbar-brand img,
+.navbar-logo {
+  height: 34px;
+  width: auto;
+  display: block;
+  vertical-align: middle;
+}
+
+.navbar-brand .navbar-title,
+.navbar-title {
+  color: $text-heading;
+  font-family: $font-family-headings;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.2s ease;
+}
+
+.navbar-brand img,
+.navbar-brand .navbar-title,
+.navbar-brand span {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+.navbar-brand::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.15rem;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.22s ease;
+  opacity: 0.9;
+}
+
+.navbar-brand:hover::after,
+.navbar-brand:focus::after {
+  transform: scaleX(1);
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-nav .nav-item {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-nav .nav-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  color: rgba(232, 219, 245, 0.90) !important;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 0.7rem;
+  padding-right: 0.7rem;
+  line-height: 1;
+  font-family: $font-family-body;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color 0.18s ease;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus,
+.navbar-nav .nav-link.active {
+  color: $pale-yellow !important;
+}
+
+/* =======================================================
+   Sidebar / TOC
+   ======================================================= */
+
+.sidebar,
+.sidebar-navigation,
+#TOC {
+  background: linear-gradient(135deg, rgba($bg-light, 0.14), rgba($bg-medium, 0.12)) !important;
+  border: 1px solid rgba($lavender, 0.05);
+  border-radius: $radius-md;
+  box-shadow: $shadow-soft, inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  padding: $space-3;
+}
+
+.sidebar .sidebar-item,
+#TOC li {
+  margin-bottom: 0.2rem;
+}
+
+.sidebar .sidebar-item-container .sidebar-item-text,
+#TOC a {
+  color: $text-secondary;
+}
+
+.sidebar .sidebar-item-container .sidebar-item-text:hover,
+#TOC a:hover {
+  color: $pale-yellow;
+}
+
+/* =======================================================
+   Footer
+   ======================================================= */
+
+.nav-footer,
+.page-footer {
+  background: linear-gradient(to top, rgba($bg-dark, 0.56), rgba($bg-dark, 0.22)) !important;
+  border-top: 1px solid rgba($lavender, 0.07);
+  padding-top: $space-3;
+  padding-bottom: $space-3;
+  color: $text-faint;
+}
+
+.nav-footer a,
+.page-footer a {
+  color: $lavender;
+}
+
+.nav-footer a:hover,
+.page-footer a:hover {
+  color: $pale-yellow;
+}
+
+/* =======================================================
+   Generic cards
+   ======================================================= */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: $space-5;
+  margin-top: $space-5;
+  margin-bottom: $space-5;
+}
+
+.card {
+  position: relative;
+  @include glass-surface();
+  border-radius: $radius-md;
+  padding: $space-5;
+  box-shadow: $shadow-soft, inset 0 1px 0 rgba(255, 255, 255, 0.08), $shadow-glow;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  @include glass-top-sheen();
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.10), 0 0 28px rgba($lavender, 0.10);
+  border-color: rgba($pink, 0.09);
+}
+
+.card h2,
+.card h3 {
+  margin-top: 0;
+  margin-bottom: $space-3;
+}
+
+.card p:last-child,
+.card ul:last-child {
+  margin-bottom: 0;
+}
+
+/* =======================================================
+   Floating card
+   Fully absorbs floating-card-standalone.css
+   ======================================================= */
+
+.floating-card-wrapper {
+  position: relative;
+  max-width: 900px;
+  margin: -120px auto 3rem;
+  padding: 0 2rem;
+  z-index: 10;
+}
+
+.floating-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba($bg-light, 0.95), rgba($bg-medium, 0.9));
+  border: 1px solid rgba($lavender, 0.4);
+  border-radius: $radius-xl;
+  padding: 3rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: $shadow-hero;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.floating-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to right, transparent, $lavender 15%, $pink 50%, $rose 85%, transparent);
+}
+
+.floating-card::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle at top right, rgba($lavender, 0.15), transparent 60%);
+  border-bottom-left-radius: 100%;
+  transition: all 0.5s ease;
+}
+
+.floating-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba($lavender, 0.6);
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.6), 0 0 80px rgba($lavender, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.floating-card:hover::after {
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle at top right, rgba($lavender, 0.25), transparent 60%);
+}
+
+.floating-card h1,
+.floating-card h2,
+.floating-card h3 {
+  margin-top: 0;
+}
+
+.floating-card h1,
+.floating-card h2 {
+  font-family: $font-family-display;
+  font-size: clamp(2rem, 3vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  border: none !important;
+  padding: 0 !important;
+  line-height: 1.2;
+  background: linear-gradient(135deg, $lavender, $pink);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.floating-card p {
+  font-family: $font-family-display;
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: #c4c7ce;
+  margin: 0 0 1.5rem 0;
+}
+
+.floating-card p:last-child,
+.floating-card > :last-child {
+  margin-bottom: 0;
+}
+
+.floating-card a {
+  color: $pale-yellow;
+  text-decoration: none;
+  border-bottom: 1px solid rgba($pale-yellow, 0.35);
+}
+
+.floating-card a:hover,
+.floating-card a:focus {
+  color: lighten($pale-yellow, 8%);
+  border-bottom-color: rgba($pale-yellow, 0.7);
+}
+
+.floating-card.glass {
+  background: linear-gradient(135deg, rgba($bg-light, 0.78), rgba($bg-medium, 0.72));
+}
+
+.floating-card.light-variant {
+  background: linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.08));
+}
+
+/* =======================================================
+   Home hero overlay bubble cards
+   Fully absorbs rww-cards.css
+   ======================================================= */
+
+.home-hero-overlay {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 4rem auto 2rem;
+  padding: 0 1.5rem;
+}
+
+.home-bubble {
+  max-width: none;
+  margin: 0;
+  padding: 2.5rem;
+  background: linear-gradient(135deg, rgba(54, 39, 86, 0.58), rgba(24, 21, 36, 0.70));
+  border: 1px solid rgba(175, 152, 230, 0.22);
+  border-radius: 1.75rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.35),
+    0 0 50px rgba(175, 152, 230, 0.10);
+}
+
+.home-bubble-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.home-bubble-card {
+  position: relative;
+  display: block;
+  padding: 1.5rem;
+  border-radius: 1.2rem;
+  text-decoration: none !important;
+  color: $text-heading;
+  background: linear-gradient(135deg, rgba(54, 39, 86, 0.60), rgba(42, 26, 69, 0.45));
+  border: 1px solid rgba(175, 152, 230, 0.18);
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.18), 0 0 20px rgba($lavender, 0.05);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.home-bubble-card:hover,
+.home-bubble-card:focus {
+  transform: translateY(-6px);
+  border-color: rgba(218, 153, 230, 0.42);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.28);
+  color: $text-overlay-strong;
+}
+
+.home-bubble-card::after {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0.8rem;
+  height: 2px;
+  background: linear-gradient(to right, #af98e6, #da99e6, #dd92c5);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s ease;
+  opacity: 1;
+}
+
+.home-bubble-card:hover::after,
+.home-bubble-card:focus::after {
+  transform: scaleX(1);
+}
+
+.home-bubble-card h2,
+.home-bubble-card h3,
+.home-bubble-card h4 {
+  margin: 0 0 0.75rem 0;
+  color: #ece8fb;
+  font-size: 1.35rem;
+  border: none;
+}
+
+.home-bubble-card p,
+.home-bubble-card .subtitle,
+.home-bubble-card .description {
+  margin: 0 0 0.9rem 0;
+  color: #c9ccd3;
+  line-height: 1.6;
+}
+
+.home-bubble-card a {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* =======================================================
+   Shared overlay wrappers
+   ======================================================= */
+
+.home-hero-overlay.mid-page-start,
+.research-hero-overlay.mid-page-start,
+.listing-hero-overlay {
+  margin-top: 0;
+  min-height: auto;
+  max-height: none;
+  padding: 0 2rem 0.5rem 0;
+  overflow: visible;
+  width: 100%;
+}
+
+.home-hero-overlay .lead-minimal,
+.research-hero-overlay .lead-minimal,
+.listing-hero-overlay .lead-minimal {
+  font-size: 0.95rem;
+  line-height: 1.2;
+  color: rgba(243, 241, 250, 0.7);
+  max-width: 450px;
+  margin: 0 0 0.2rem 0;
+  font-family: $font-family-body;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  opacity: 0.85;
+  text-align: left;
+}
+
+/* =======================================================
+   Overlay page modes
+   Home / research / listing
+   ======================================================= */
+
+@include overlay-body('home-hero-overlay');
+@include overlay-content-shell('home-hero-overlay');
+
+@include overlay-body('research-hero-overlay');
+@include overlay-hide-sidebar('research-hero-overlay');
+@include overlay-content-shell('research-hero-overlay');
+
+@include overlay-body('listing-hero-overlay');
+@include overlay-hide-sidebar('listing-hero-overlay');
+@include overlay-content-shell('listing-hero-overlay');
+
+/* Landing page specific constraints retained from original */
+body:has(.home-hero-overlay) .column-body,
+body:has(.home-hero-overlay) .column-page,
+body:has(.home-hero-overlay) .column-body-outset {
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* =======================================================
+   Circle grids and cards
+   Fully absorbs rww-circles.css and circles-research.css
+   plus listing circular card mode
+   ======================================================= */
+
+@include circle-grid('home-hero-overlay');
+@include circle-grid('research-hero-overlay');
+@include circle-grid('listing-hero-overlay');
+
+@include circle-card-shell('body:has(.home-hero-overlay) .circle-card');
+@include circle-card-shell('body:has(.research-hero-overlay) .circle-card');
+@include circle-card-shell('body:has(.listing-hero-overlay) .listing-item');
+
+@include circle-surface('body:has(.home-hero-overlay) .circle-card a');
+@include circle-surface('body:has(.research-hero-overlay) .circle-card a');
+@include circle-surface('body:has(.listing-hero-overlay) .listing-item .card');
+
+/* Listing-mode structural adjustments */
+body:has(.listing-hero-overlay) .quarto-listing-container-grid .list {
+  display: contents !important;
+}
+
+body:has(.listing-hero-overlay) .listing-actions-group,
+body:has(.listing-hero-overlay) .listing-pagination {
+  display: none !important;
+}
+
+body:has(.listing-hero-overlay) .listing-item .card-img-top,
+body:has(.listing-hero-overlay) .listing-item .card img {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 0 !important;
+  margin: 0 !important;
+}
+
+body:has(.listing-hero-overlay) .listing-item .card-body {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(0, 0, 0, 0.3) !important;
+  backdrop-filter: blur(2px) !important;
+  -webkit-backdrop-filter: blur(2px) !important;
+  padding: 1rem !important;
+  margin: 0 !important;
+  border-radius: 50% !important;
+  transition: all 0.4s ease;
+}
+
+body:has(.listing-hero-overlay) .listing-item .card-title {
+  color: $text-overlay !important;
+  font-family: $font-family-headings !important;
+  font-size: $circle-font-size !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.1em !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+  line-height: 1.2;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+body:has(.listing-hero-overlay) .listing-item .card:hover .card-body,
+body:has(.listing-hero-overlay) .listing-item .card:focus-visible .card-body {
+  background: rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+}
+
+body:has(.listing-hero-overlay) .listing-item .card:hover .card-title,
+body:has(.listing-hero-overlay) .listing-item .card:focus-visible .card-title {
+  color: $text-overlay-strong !important;
+}
+
+body:has(.listing-hero-overlay) .listing-item .card-text,
+body:has(.listing-hero-overlay) .listing-item .listing-description,
+body:has(.listing-hero-overlay) .listing-item .listing-date,
+body:has(.listing-hero-overlay) .listing-item .listing-author,
+body:has(.listing-hero-overlay) .listing-item .listing-categories,
+body:has(.listing-hero-overlay) .listing-item .card-footer {
+  display: none !important;
+}
+
+/* Shared circle animation staggering */
+body:has(.home-hero-overlay) .circle-card:nth-child(1) a,
+body:has(.research-hero-overlay) .circle-card:nth-child(1) a,
+body:has(.listing-hero-overlay) .listing-item:nth-child(1) .card { animation-delay: 0s; }
+
+body:has(.home-hero-overlay) .circle-card:nth-child(2) a,
+body:has(.research-hero-overlay) .circle-card:nth-child(2) a,
+body:has(.listing-hero-overlay) .listing-item:nth-child(2) .card { animation-delay: 0.5s; }
+
+body:has(.home-hero-overlay) .circle-card:nth-child(3) a,
+body:has(.research-hero-overlay) .circle-card:nth-child(3) a,
+body:has(.listing-hero-overlay) .listing-item:nth-child(3) .card { animation-delay: 1s; }
+
+body:has(.home-hero-overlay) .circle-card:nth-child(4) a,
+body:has(.research-hero-overlay) .circle-card:nth-child(4) a,
+body:has(.listing-hero-overlay) .listing-item:nth-child(4) .card { animation-delay: 1.5s; }
+
+body:has(.home-hero-overlay) .circle-card:nth-child(5) a,
+body:has(.research-hero-overlay) .circle-card:nth-child(5) a,
+body:has(.listing-hero-overlay) .listing-item:nth-child(5) .card { animation-delay: 2s; }
+
+body:has(.home-hero-overlay) .circle-card:nth-child(6) a,
+body:has(.research-hero-overlay) .circle-card:nth-child(6) a,
+body:has(.listing-hero-overlay) .listing-item:nth-child(6) .card { animation-delay: 2.5s; }
+
+/* Optional constellation mode retained from original landing page styling */
+body:has(.home-hero-overlay) .circle-grid.constellation {
+  position: relative;
+}
+
+body:has(.home-hero-overlay) .circle-grid.constellation::before {
+  content: '';
+  position: absolute;
+  inset: 15% 12% 18% 12%;
+  pointer-events: none;
+  opacity: 0.22;
+  background:
+    radial-gradient(circle at 15% 25%, rgba($text-overlay, 0.6) 0 1px, transparent 2px),
+    radial-gradient(circle at 80% 22%, rgba($text-overlay-strong, 0.55) 0 1px, transparent 2px),
+    radial-gradient(circle at 60% 78%, rgba($lavender, 0.5) 0 1px, transparent 2px),
+    linear-gradient(135deg, transparent 35%, rgba($text-overlay, 0.16) 36%, rgba($text-overlay, 0.16) 37%, transparent 38%),
+    linear-gradient(25deg, transparent 52%, rgba($lavender, 0.12) 53%, rgba($lavender, 0.12) 54%, transparent 55%);
+  animation: twinkle 4.5s ease-in-out infinite;
+}
+
+/* =======================================================
+   Tables / code
+   ======================================================= */
+
+table {
+  color: $text-secondary;
+  background: rgba($bg-medium, 0.10);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+thead,
+th {
+  color: $text-heading;
+}
+
+pre {
+  background: rgba(15, 12, 25, 0.52);
+  border: 1px solid rgba($lavender, 0.08);
+  border-radius: 0.85rem;
+  padding: $space-4;
+  margin-bottom: $space-4;
+}
+
+code:not(pre code) {
+  background: rgba($bg-medium, 0.18);
+  padding: 0.12rem 0.35rem;
+  border-radius: 0.35rem;
+  color: $text-heading;
+}
+
+/* =======================================================
+   Animations
+   ======================================================= */
+
+@keyframes rotateGlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes floatSpot {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    box-shadow: $shadow-circle;
+  }
+  50% {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.2), 0 0 35px rgba($pink, 0.15);
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.14; }
+  50% { opacity: 0.28; }
+}
+
+/* =======================================================
+   Responsive
+   ======================================================= */
+
+@media (min-width: 992px) {
+  #quarto-content {
+    padding-top: $space-4;
+    padding-bottom: $space-4;
+  }
+
+  main.content,
+  .page-layout-article .content,
+  .page-layout-custom .content {
+    padding: $space-6;
+    margin-top: $space-4;
+    margin-bottom: $space-6;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .navbar-brand img,
+  .navbar-logo {
+    height: 30px;
+  }
+
+  .page-columns {
+    gap: $space-4;
+  }
+
+  .floating-card-wrapper {
+    margin: -80px auto 2rem;
+    padding: 0 1rem;
+  }
+
+  .navbar-brand,
+  .navbar-nav .nav-link {
+    min-height: 38px;
+  }
+}
+
+@media (max-width: 768px) {
+  body::before {
+    transform: none;
+    background: url("images/Banner.webp") center top / cover no-repeat;
+  }
+
+  #quarto-content {
+    padding-top: $space-2;
+    padding-bottom: $space-2;
+  }
+
+  main.content,
+  .page-layout-article .content,
+  .page-layout-custom .content {
+    background: linear-gradient(135deg, rgba($bg-light, 0.22), rgba($bg-medium, 0.18));
+    padding: $space-4;
+    margin-top: $space-2;
+    margin-bottom: $space-4;
+    border-radius: 1rem;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  .cards {
+    gap: $space-4;
+    margin-top: $space-4;
+  }
+
+  .card {
+    padding: $space-4;
+  }
+
+  .floating-card {
+    padding: 2rem;
+  }
+
+  .sidebar,
+  .sidebar-navigation,
+  #TOC {
+    padding: $space-2;
+  }
+
+  .navbar-brand .navbar-title,
+  .navbar-title,
+  .navbar-nav .nav-link {
+    font-size: 0.95rem;
+  }
+
+  body:has(.listing-hero-overlay) .listing-item .card-title {
+    font-size: $circle-font-size-md !important;
+  }
+}
+
+@media (max-width: 480px) {
+  main.content,
+  .page-layout-article .content,
+  .page-layout-custom .content {
+    padding: $space-3;
+  }
+
+  .card,
+  .floating-card {
+    padding: $space-3;
+  }
+
+  .floating-card-wrapper {
+    margin: -60px auto 1.5rem;
+  }
+
+  body:has(.listing-hero-overlay) .listing-item .card-title {
+    font-size: $circle-font-size-sm !important;
+  }
+}
